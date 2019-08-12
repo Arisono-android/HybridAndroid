@@ -57,3 +57,15 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+
+# others
+/__tests__
+/android
+/ios
+/test.md
+/.buckconfig
+/.flowconfig
+/.gitattributes
+/.watchmanconfig
+/yarn.lock
