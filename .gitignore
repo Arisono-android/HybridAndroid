@@ -57,7 +57,7 @@ buck-out/
 
 
 # others
-/_tests_
+/__tests__
 /android
 /ios
 /test.md
@@ -65,3 +65,4 @@ buck-out/
 /.flowconfig
 /.gitattributes
 /.watchmanconfig
+/yarn.lock
