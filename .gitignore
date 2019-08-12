@@ -69,3 +69,4 @@ buck-out/
 /.gitattributes
 /.watchmanconfig
 /yarn.lock
+/.idea
