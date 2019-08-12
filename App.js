@@ -25,10 +25,13 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
+
+
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
+
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
