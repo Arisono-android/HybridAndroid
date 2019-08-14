@@ -124,7 +124,6 @@ class CodePushPa extends Component {
                 </TouchableOpacity>
                 <Text style={styles.messages}>{this.state.syncMessage || ""}</Text>
 
-                <Text style={styles.messages}></Text>
 
             </View>
         );

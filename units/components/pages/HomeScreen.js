@@ -28,6 +28,41 @@ class HomeScreen extends React.Component {
         // })
     }
 
+
+    componentDidMount() {
+
+        //适配iOS侧滑返回
+        this.viewDidAppear = this.props.navigation.addListener( //类似OC里的 viewDidAppear方法
+            'didFocus',// 有4个取值 willFocus即将显示、didFocus完成显示、willBlur即将消失、didBlur消失
+            (obj)=>{
+
+                YRRnBridge.gestureEnabled(true);
+
+            }
+        )
+
+        this.viewWillDisappear = this.props.navigation.addListener(//类似OC里的 viewWillDisappear方法
+            'willBlur', // 有4个取值 willFocus即将显示、didFocus完成显示、willBlur即将消失、didBlur消失
+            (obj)=>{
+
+                YRRnBridge.gestureEnabled(false);
+
+            }
+        )
+
+
+
+
+    }
+
+    componentWillUnmount() {   // 移除监听
+
+        this.viewDidAppear.remove();
+        this.viewWillDisappear.remove();
+
+    }
+
+
     render() {
         const {navigation} = this.props;
         return (
