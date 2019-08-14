@@ -91,12 +91,6 @@ class CodePushPa extends Component {
     }
 
 
-    goBack() {
-
-        YR
-
-    }
-
 
     render() {
 
@@ -112,11 +106,9 @@ class CodePushPa extends Component {
 
             <View style={styles.container} >
 
-
-                <TouchableOpacity onPress={this.getUpdateMetadata.bind(this)}>
-                    <Text style={styles.syncButton}>Welcome to CodePush!</Text>
-                </TouchableOpacity>
-
+                <Text style={styles.welcome}>
+                    Welcome to CodePush!
+                </Text>
                 <TouchableOpacity onPress={this.sync.bind(this)}>
                     <Text style={styles.syncButton}>Press for background sync</Text>
                 </TouchableOpacity>
@@ -131,6 +123,8 @@ class CodePushPa extends Component {
                     <Text style={styles.syncButton}>Press for Update Metadata</Text>
                 </TouchableOpacity>
                 <Text style={styles.messages}>{this.state.syncMessage || ""}</Text>
+
+                <Text style={styles.messages}></Text>
 
             </View>
         );

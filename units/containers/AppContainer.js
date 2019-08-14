@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import HomeScreen from "../components/pages/HomeScreen";
 import {DetailsScreen} from "../components/pages/DetailsScreen";
+import CodePushPage from "../components/pages/CodePushPage";
 
 export const AppNavigator = createStackNavigator({
     Home: {
@@ -15,6 +16,13 @@ export const AppNavigator = createStackNavigator({
         navigationOptions : {
             title: '详情',
             headerBackTitle:'返回',//设置返回此页面的返回按钮文案，有长度限制
+        }
+    },
+    CodePushPage:{
+        screen:CodePushPage,//热更新测试页面
+        navigationOptions : {
+            title: '热更新',
+            headerBackTitle:'热更新',
         }
     }
 }, {
