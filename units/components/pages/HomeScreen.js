@@ -4,6 +4,8 @@ import {View, Text, Button,TouchableHighlight,StyleSheet} from "react-native";
 import {changeBtnText} from "../../actions/bi/index";
 import YRHttpRequest from  "../../utils/network/fetch"
 import {API} from "../../utils/network/axios/api.config";
+import {NativeModules} from 'react-native';
+const YRRnBridge = NativeModules.YRRnBridge;
 
 class HomeScreen extends React.Component {
 
@@ -57,6 +59,20 @@ class HomeScreen extends React.Component {
                     style={styles.button} onPress={this.loadData.bind(this)}>
                     <Text style={styles.text} > Touch Here </Text>
                 </TouchableHighlight>
+
+                <Button title="iOS返回测试"
+                        onPress={() => {
+
+                                 YRRnBridge.goBack();
+
+                        }}/>
+
+                <Button title="热更新测试"
+                        onPress={() => {
+
+                            navigation.navigate('CodePushPage', {name: '热更新'});
+
+                        }}/>
 
             </View>
         );
