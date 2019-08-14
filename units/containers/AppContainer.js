@@ -1,13 +1,18 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import HomeScreen from "../components/pages/HomeScreen";
 import {DetailsScreen} from "../components/pages/DetailsScreen";
-
+import {Platform,StatusBar} from "react-native";
+import YRActivityIndicator from "../components/common/YRActivityIndicator";
 export const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
-        navigationOptions: {//在这里定义每个页面的导航属性，静态配置
+        navigationOptions: {
             title: "首页",
-            headerBackTitle:'返回主界面',//设置返回此页面的返回按钮文案，有长度限制
+            headerBackTitle:'返回主界面',
+            headerStyle: Platform.OS === 'android' ? {
+                paddingTop: StatusBar.currentHeight,
+                height: StatusBar.currentHeight + 56,
+            } : {}
         }
     },
     Details:{
@@ -15,7 +20,14 @@ export const AppNavigator = createStackNavigator({
         navigationOptions : {
             title: '详情',
             headerBackTitle:'返回',//设置返回此页面的返回按钮文案，有长度限制
+            headerStyle: Platform.OS === 'android' ? {
+                paddingTop: StatusBar.currentHeight,
+                height: StatusBar.currentHeight + 56,
+            } : {}
         }
+    },
+    YRActivityIndicator:{
+        screen:YRActivityIndicator
     }
 }, {
     initialRouteName: 'Home',

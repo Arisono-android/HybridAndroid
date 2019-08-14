@@ -7,9 +7,7 @@
 - redux-thunk
 - redux-logger
 
-
-react-native-tab-navigator
-
+- npm install --save prop-types
 
 
 ## 项目目录

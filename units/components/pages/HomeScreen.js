@@ -1,11 +1,18 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {View, Text, Button,TouchableHighlight,StyleSheet} from "react-native";
+import {Platform,StatusBar,View, Text, Button,TouchableHighlight,StyleSheet} from "react-native";
 import {changeBtnText} from "../../actions/bi/index";
 import YRHttpRequest from  "../../utils/network/fetch"
 import {API} from "../../utils/network/axios/api.config";
 
 class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: '主页面',
+        headerStyle: Platform.OS === 'android' ? {
+            paddingTop: StatusBar.currentHeight,
+            height: StatusBar.currentHeight + 56,
+        } : {}
+    }
 
     loadData=()=>{
         //fetch请求
@@ -37,7 +44,12 @@ class HomeScreen extends React.Component {
                         navigation.navigate('Details', {name: '动态的'});
                     }}
                 />
-
+                <Button
+                    title="异步进度条"
+                    onPress={() => {
+                        navigation.navigate('YRActivityIndicator', {name: '进度条'});
+                    }}
+                />
                 <Text style={{marginBottom: 10}}>{this.props.btnText}</Text>
                 <Button title="更新文字"
                         onPress={() => {
