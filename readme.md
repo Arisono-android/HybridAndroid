@@ -6,17 +6,25 @@
 - redux
 - redux-thunk
 - redux-logger
-
 - npm install --save prop-types
 
 
+## UI组件封装
+
+- 进度条
+- 自定义对话框
+- 搜索组件
+- 二级列表
+- 圆角卡片布局
+- 图表组件
+
 ## 项目目录
 
-actions
-components
-pages
-containers
-constants
-reducers
-store
-utils
+- actions
+- components
+- pages
+- containers
+- constants
+- reducers
+- store
+- utils

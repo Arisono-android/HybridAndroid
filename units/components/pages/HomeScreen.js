@@ -50,6 +50,13 @@ class HomeScreen extends React.Component {
                         navigation.navigate('YRActivityIndicator', {name: '进度条'});
                     }}
                 />
+
+                <Button
+                    title="自定义对话框"
+                    onPress={() => {
+                        navigation.navigate('YRModel', {name: '进度条'});
+                    }}
+                />
                 <Text style={{marginBottom: 10}}>{this.props.btnText}</Text>
                 <Button title="更新文字"
                         onPress={() => {

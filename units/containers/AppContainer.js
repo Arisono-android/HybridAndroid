@@ -3,6 +3,7 @@ import HomeScreen from "../components/pages/HomeScreen";
 import {DetailsScreen} from "../components/pages/DetailsScreen";
 import {Platform,StatusBar} from "react-native";
 import YRActivityIndicator from "../components/common/YRActivityIndicator";
+import YRModel from "../components/common/YRModel";
 export const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
@@ -28,6 +29,9 @@ export const AppNavigator = createStackNavigator({
     },
     YRActivityIndicator:{
         screen:YRActivityIndicator
+    },
+    YRModel:{
+        screen:YRModel
     }
 }, {
     initialRouteName: 'Home',
