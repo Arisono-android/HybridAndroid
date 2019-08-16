@@ -6,9 +6,13 @@
 - redux
 - redux-thunk
 - redux-logger
+
 - npm install --save prop-types
-
-
+- 日期组件
+- npm install react-native-picker --save
+- react-native link
+  
+  
 ## UI组件封装
 
 - 进度条

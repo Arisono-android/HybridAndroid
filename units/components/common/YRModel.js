@@ -94,15 +94,12 @@ class YRModel extends React.Component {
 const styles = StyleSheet.create({
     page:{
         flex: 1,
-
         justifyContent: 'center',
     },
     container: {
         flex: 1,
         justifyContent: 'center',
         padding: 20,
-        borderColor:"#E7E7E7",
-        borderWidth:1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     innerContainer: {

@@ -47,7 +47,7 @@ class HomeScreen extends React.Component {
                 <Button
                     title="异步进度条"
                     onPress={() => {
-                        navigation.navigate('YRActivityIndicator', {name: '进度条'});
+                        navigation.navigate('YRDatePicker', {name: '进度条'});
                     }}
                 />
 
