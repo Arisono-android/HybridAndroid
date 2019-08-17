@@ -12,6 +12,11 @@
 - npm install react-native-picker --save
 - react-native link
   
+- Toast组件
+- npm i react-native-easy-toast --save
+
+- 下拉组件
+- npm i react-native-modal-dropdown -save
   
 ## UI组件封装
 

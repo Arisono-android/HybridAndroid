@@ -3,39 +3,32 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet,View,Text,TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Dimensions} from 'react-native';
 import Picker from 'react-native-picker';
-
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 
 class YRDatePicker extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = ({
-            currentDate:this._getCurrentDate(),
-        })
 
+    // static propTypes = {
+    //     dateTimeCallback: PropTypes.func
+    // };
+
+    constructor(props, context) {
+        super(props, context);
     }
 
 
-    //获取当前日期  格式如 2018-12-15
-    _getCurrentDate(){
-        var currDate = new Date()
-        var year = currDate.getFullYear()
-        var month = (currDate.getMonth()+1).toString()
-        month = month.padStart(2,'0')
-        var dateDay = currDate.getDate().toString()
-        dateDay = dateDay.padStart(2,'0')
-        let time = year+'-'+month+'-'+dateDay
-        return time;
-    }
-    //组装日期数据
-    _createDateData(){
+
+    _createDateData() {
         let date = [];
-        var currDate = new Date()
-        var year = currDate.getFullYear()
-        var month = currDate.getMonth()+1
-        for(let i=1970;i<=year;i++){
+        for(let i=1970;i<2020;i++){
             let month = [];
             for(let j = 1;j<13;j++){
                 let day = [];
@@ -68,63 +61,120 @@ class YRDatePicker extends React.Component{
         }
         return date;
     }
-    //打开日期选择 视图
-    _showDatePicker() {
-        var year = ''
-        var month = ''
-        var day = ''
-        var dateStr = this.state.currentDate
-        //console.log('dateStr',dateStr)
-        year = dateStr.substring(0,4)
-        month = parseInt(dateStr.substring(5,7))
-        day = parseInt(dateStr.substring(8,10))
+
+
+    _showTimePicker() {
+        let years = [],
+            months = [],
+            days = [],
+            hours = [],
+            minutes = [];
+
+        for(let i=1;i<51;i++){
+            years.push(i+1980);
+        }
+        for(let i=1;i<13;i++){
+            months.push(i);
+            hours.push(i);
+        }
+        for(let i=1;i<32;i++){
+            days.push(i);
+        }
+        for(let i=1;i<61;i++){
+            minutes.push(i);
+        }
+        let pickerData = [years, months, days, ['上午', '下午'], hours, minutes];
+        let date = new Date();
+        let selectedValue = [
+            date.getFullYear(),
+            date.getMonth()+1,
+            date.getDate(),
+            date.getHours() > 11 ? '下午' : '上午',
+            date.getHours() === 12 ? 12 : date.getHours()%12,
+            date.getMinutes()
+        ];
         Picker.init({
-            pickerTitleText:'时间选择',
+            pickerData,
+            selectedValue,
+            pickerBg:[255,255,255,1],
             pickerCancelBtnText:'取消',
             pickerConfirmBtnText:'确定',
-            selectedValue:[year+'年',month+'月',day+'日'],
-            pickerBg:[255,255,255,1],
-            pickerData: this._createDateData(),
-            pickerFontColor: [33, 33 ,33, 1],
-            onPickerConfirm: (pickedValue, pickedIndex) => {
-                var year = pickedValue[0].substring(0,pickedValue[0].length-1)
-                var month = pickedValue[1].substring(0,pickedValue[1].length-1)
-                month = month.padStart(2,'0')
-                var day = pickedValue[2].substring(0,pickedValue[2].length-1)
-                day = day.padStart(2,'0')
-                let str = year+'-'+month+'-'+day
-                this.setState({
-                    currentDate:str,
-                })
+            pickerTitleText: '时间选择',
+            wheelFlex: [2, 1, 1, 2, 1, 1],
+            onPickerConfirm: pickedValue => {
+                console.log('area', pickedValue);
+                let selectTime=pickedValue[0]+"年"+pickedValue[1]+"月"+pickedValue[2]+"日"+pickedValue[3]+" "+pickedValue[4]+"时"+pickedValue[5]+"分";
+                this.refs.toast.show('pickedValue：'+selectTime,6000);
+
+                dateTimeCallback(pickedValue);
             },
-            onPickerCancel: (pickedValue, pickedIndex) => {
-                console.log('date', pickedValue, pickedIndex);
+            onPickerCancel: pickedValue => {
+                console.log('area', pickedValue);
             },
-            onPickerSelect: (pickedValue, pickedIndex) => {
-                console.log('date', pickedValue, pickedIndex);
+            onPickerSelect: pickedValue => {
+                let targetValue = [...pickedValue];
+                if(parseInt(targetValue[1]) === 2){
+                    if(targetValue[0]%4 === 0 && targetValue[2] > 29){
+                        targetValue[2] = 29;
+                    }
+                    else if(targetValue[0]%4 !== 0 && targetValue[2] > 28){
+                        targetValue[2] = 28;
+                    }
+                }
+                else if(targetValue[1] in {4:1, 6:1, 9:1, 11:1} && targetValue[2] > 30){
+                    targetValue[2] = 30;
+
+                }
+                // forbidden some value such as some 2.29, 4.31, 6.31...
+                if(JSON.stringify(targetValue) !== JSON.stringify(pickedValue)){
+                    // android will return String all the time，but we put Number into picker at first
+                    // so we need to convert them to Number again
+                    targetValue.map((v, k) => {
+                        if(k !== 3){
+                            targetValue[k] = parseInt(v);
+                        }
+                    });
+                    Picker.select(targetValue);
+                    pickedValue = targetValue;
+                }
             }
         });
         Picker.show();
     }
 
-
-
-    render(){
-            return(
-                <View style={styles.container}>
-                    <View style={styles.content}>
-                        <Text style={styles.textStyle}>选择日期</Text>
-                        <TouchableOpacity onPress={()=>this._showDatePicker()}>
-                            <Text style={styles.textStyle}>{this.state.currentDate}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            )
+    _toggle() {
+        Picker.toggle();
     }
 
+    _isPickerShow(){
+        Picker.isPickerShow(status => {
+            alert(status);
+        });
+    }
 
-
-
+    render() {
+        const { dateTimeCallback } = this.props;
+        this._showTimePicker.bind(this,dateTimeCallback);
+        return (
+            <View style={{height: Dimensions.get('window').height}}>
+          {/*      <TouchableOpacity style={{marginTop: 40, marginLeft: 20}} onPress={this._showDatePicker.bind(this)}>
+                    <Text>DatePicker</Text>
+                </TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginTop: 10, marginLeft: 20}} onPress={this._showTimePicker.bind(this,dateTimeCallback)}>*/}
+                    {/*<Text>TimePicker</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginTop: 10, marginLeft: 20}} onPress={this._toggle.bind(this)}>*/}
+                    {/*<Text>toggle</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={{marginTop: 10, marginLeft: 20}} onPress={this._isPickerShow.bind(this)}>*/}
+                    {/*<Text>isPickerShow</Text>*/}
+                {/*</TouchableOpacity>*/}
+                <Toast
+                    ref="toast"
+                    position='center'/>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
