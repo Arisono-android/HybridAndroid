@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {
-    Dimensions,
+    Dimensions, Image,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -9,6 +9,8 @@ import {
 import CodePush from "react-native-code-push";
 
 class CodePushPa extends Component {
+
+
     constructor(props) {
         super(props);
 
@@ -19,6 +21,7 @@ class CodePushPa extends Component {
 
 
     }
+
 
     codePushStatusDidChange(syncStatus) {
         switch(syncStatus) {
@@ -64,12 +67,12 @@ class CodePushPa extends Component {
     }
 
     getUpdateMetadata() {
-        CodePush.getUpdateMetadata(CodePush.UpdateState.RUNNING)
-            .then((metadata) => {
-                this.setState({ syncMessage: metadata ? JSON.stringify(metadata) : "Running binary version", progress: false });
-            }, (error) => {
-                this.setState({ syncMessage: "Error: " + error, progress: false });
-            });
+        // CodePush.getUpdateMetadata(CodePush.UpdateState.RUNNING)
+        //     .then((metadata) => {
+        //         this.setState({ syncMessage: metadata ? JSON.stringify(metadata) : "Running binary version", progress: false });
+        //     }, (error) => {
+        //         this.setState({ syncMessage: "Error: " + error, progress: false });
+        //     });
     }
 
     /** Update is downloaded silently, and applied on restart (recommended) */

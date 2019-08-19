@@ -1,13 +1,43 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {View, Text, Button,TouchableHighlight,StyleSheet} from "react-native";
+import {View, Text, Button,TouchableHighlight,StyleSheet,Image,TouchableOpacity} from "react-native";
 import {changeBtnText} from "../../actions/bi/index";
 import YRHttpRequest from  "../../utils/network/fetch"
 import {API} from "../../utils/network/axios/api.config";
 import {NativeModules} from 'react-native';
+import NavigationUtil from "../navigator/NavigationUtil";
 const YRRnBridge = NativeModules.YRRnBridge;
 
 class HomeScreen extends React.Component {
+
+    static navigationOptions = {
+        title: 'DetailsScreen',
+        headerBackTitle:'返回',//设置返回此页面的返回按钮文案，有长度限制
+        headerLeft:(
+
+            <TouchableOpacity  style={{marginLeft:0,width:50,height:30}}
+
+
+                onPress={() => {
+
+                    YRRnBridge.goBack();
+
+                }}
+
+            >
+
+
+                <Image  style={{marginLeft:20,marginTop:6,width:12,height:20,}}
+
+                        source={{uri: 'uu_back-icon'}}
+
+                ></Image>
+
+            </TouchableOpacity>
+
+
+        )
+    }
 
     loadData=()=>{
         //fetch请求
@@ -51,8 +81,6 @@ class HomeScreen extends React.Component {
         )
 
 
-
-
     }
 
     componentWillUnmount() {   // 移除监听
@@ -64,7 +92,11 @@ class HomeScreen extends React.Component {
 
 
     render() {
+
         const {navigation} = this.props;
+
+        NavigationUtil.navigation = navigation;
+
         return (
             <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
                 <Text style={{marginBottom: 10}}>Home Screen</Text>
@@ -95,17 +127,18 @@ class HomeScreen extends React.Component {
                     <Text style={styles.text} > Touch Here </Text>
                 </TouchableHighlight>
 
-                <Button title="iOS返回测试"
-                        onPress={() => {
-
-                                 YRRnBridge.goBack();
-
-                        }}/>
-
                 <Button title="热更新测试"
                         onPress={() => {
 
-                            navigation.navigate('CodePushPage', {name: '热更新'});
+                            NavigationUtil.goPage({name: '热更新'},'CodePushPage');
+
+                            // navigation.navigate('CodePushPage', {name: '热更新'});
+
+                        }}/>
+                <Button title="图表测试"
+                        onPress={() => {
+
+                            navigation.navigate('EChartsPage', {name: '图表'});
 
                         }}/>
 

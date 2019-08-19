@@ -30,6 +30,7 @@ export class DetailsScreen extends React.Component {
                 <View   style={{margin: 3}}>
                 <Button
                     title="返回"
+
                     onPress={() => this.props.navigation.goBack()}
                 />
                 </View>
