@@ -6,9 +6,7 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    StyleSheet,
-    ScrollView,
-    RefreshControl
+    StyleSheet
 } from "react-native"
 let Dimensions = require('Dimensions');
 let screenWidth = Dimensions.get('window').width;
