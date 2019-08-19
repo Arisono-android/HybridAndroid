@@ -25,23 +25,24 @@ class HomeScreen extends React.Component {
             height: StatusBar.currentHeight + 56,
         } : {}
     }
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state={
-            name:'YRSearchBar',
-            inputValue:"",
-            refreshing:false
+        this.state = {
+            name: 'YRSearchBar',
+            inputValue: "",
+            isRefreshing: false
         };
     }
 
 
-    loadData=()=>{
+    loadData = () => {
         //fetch请求
-        console.log("loadData():",API.TEST_GET);
-        YRHttpRequest.get(API.TEST_GET).then(res=>{
-            console.log("res.data=",res);
-        }).catch(err=>{
-            console.log("res.data=",err);
+        console.log("loadData():", API.TEST_GET);
+        YRHttpRequest.get(API.TEST_GET).then(res => {
+            console.log("res.data=", res);
+        }).catch(err => {
+            console.log("res.data=", err);
         })
         //axios请求
         // console.log("loadData():",API.TEST_GET);
@@ -54,10 +55,10 @@ class HomeScreen extends React.Component {
         // })
     }
 
-    onSearchChangeText=(text)=>{
-       console.log("onSearchChangeText() text:",text);
+    onSearchChangeText = (text) => {
+        console.log("onSearchChangeText() text:", text);
         if (text) {
-            this.setState({ inputValue: text })
+            this.setState({inputValue: text})
             clearTimeout(this.settimeId);
             this.settimeId = setTimeout(() => {
 
@@ -67,15 +68,22 @@ class HomeScreen extends React.Component {
         }
     }
 
-    onSearch=(inputValue)=>{
-        console.log("onSearch()",inputValue);
+    onSearch = (inputValue) => {
+        console.log("onSearch()", inputValue);
     }
-    _onRefresh=()=>{
+    _onRefresh = () => {
+        this.setState({
+            isRefreshing: true
+        });
         console.log("_onRefresh()");
-
+        setTimeout(() => {
+            this.setState({
+                isRefreshing: false
+            });
+        }, 6000);
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
@@ -88,8 +96,8 @@ class HomeScreen extends React.Component {
                     refreshControl={
                         <RefreshControl
                             title={'下拉刷新'}
-                            refreshing={this.state.refreshing}
-                            colors={['rgb(255, 176, 0)',"#ffb100"]}
+                            refreshing={this.state.isRefreshing}
+                            colors={['rgb(255, 176, 0)', "#ffb100"]}
                             onRefresh={() => {
                                 this._onRefresh();
                             }}
@@ -102,7 +110,7 @@ class HomeScreen extends React.Component {
                         placeholder="搜索"
                         onSearch={this.onSearch}
                         onSearchChangeText={this.onSearchChangeText}/>
-                    <View style={{ alignItems: "center", justifyContent: "center"}}>
+                    <View style={{alignItems: "center", justifyContent: "center"}}>
 
                         <Text style={{marginBottom: 10}}>Home Screen</Text>
                         <Button
@@ -131,9 +139,9 @@ class HomeScreen extends React.Component {
                                 }}/>
 
                         <Button style={{marginBottom: 10}}
-                                title="断点调式" onPress={()=>{
+                                title="断点调式" onPress={() => {
                             for (let i = 0; i < 10; i++) {
-                                console.log("i*i=",i*i);
+                                console.log("i*i=", i * i);
                             }
                         }}/>
 
@@ -141,13 +149,13 @@ class HomeScreen extends React.Component {
                             underlayColor="#FF00FF"
                             activeOpacity={1}
                             style={styles.button} onPress={this.loadData.bind(this)}>
-                            <Text style={styles.text} > Touch Here </Text>
+                            <Text style={styles.text}> Touch Here </Text>
                         </TouchableHighlight>
 
                     </View>
                 </ScrollView>
 
-        </View>
+            </View>
 
         );
     }
@@ -162,9 +170,9 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         backgroundColor: '#DDDDDD',
-        borderRadius:5,
+        borderRadius: 5,
         padding: 10,
-        margin:10
+        margin: 10
     },
     countContainer: {
         alignItems: 'center',
@@ -173,18 +181,18 @@ const styles = StyleSheet.create({
     countText: {
         color: '#FF00FF'
     },
-    text:{
-        fontWeight:'600',
-        color:'#FFFFFF'
+    text: {
+        fontWeight: '600',
+        color: '#FFFFFF'
     }
 })
 
 const mapStateToProps = state => ({
-    btnText:state.pageMainReducer.btnText
+    btnText: state.pageMainReducer.btnText
 })
 
 const mapDispatchToProps = dispatch => ({
-    changeText:(text)=>{
+    changeText: (text) => {
         dispatch(changeBtnText(text));
     }
 })
