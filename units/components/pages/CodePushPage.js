@@ -7,8 +7,9 @@ import {
     View,
 } from 'react-native';
 import CodePush from "react-native-code-push";
+import BasePage from "./BasePage";
 
-class CodePushPa extends Component {
+class CodePushPa extends BasePage {
 
 
     constructor(props) {

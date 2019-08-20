@@ -5,8 +5,9 @@ import {
     FlatList, Image,
 } from 'react-native';
 import BIChartsItem from "../commons/bi/BIChartsItem";
+import BasePage from "./BasePage";
 
-export default class EChartsPage extends Component {
+export default class EChartsPage extends BasePage {
 
 
     static navigationOptions = {
@@ -35,7 +36,7 @@ export default class EChartsPage extends Component {
 
         this.state={
 
-            dataArray:['line','bar','line'],
+            dataArray:['line','bar','pie'],
 
         }
 
@@ -62,6 +63,7 @@ export default class EChartsPage extends Component {
                 <FlatList
 
                     data={this.state.dataArray}
+                    keyExtractor={item => "" + (item.item)}
                     renderItem = {data=>this.renderItem(data)}
 
                 />
