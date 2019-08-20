@@ -1,14 +1,17 @@
 import React,{ Component } from 'react';
 import {
-    Dimensions,
+    Dimensions, Image,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 import CodePush from "react-native-code-push";
+import BasePage from "./BasePage";
 
-class CodePushPa extends Component {
+class CodePushPa extends BasePage {
+
+
     constructor(props) {
         super(props);
 
@@ -19,6 +22,7 @@ class CodePushPa extends Component {
 
 
     }
+
 
     codePushStatusDidChange(syncStatus) {
         switch(syncStatus) {
@@ -64,12 +68,12 @@ class CodePushPa extends Component {
     }
 
     getUpdateMetadata() {
-        CodePush.getUpdateMetadata(CodePush.UpdateState.RUNNING)
-            .then((metadata) => {
-                this.setState({ syncMessage: metadata ? JSON.stringify(metadata) : "Running binary version", progress: false });
-            }, (error) => {
-                this.setState({ syncMessage: "Error: " + error, progress: false });
-            });
+        // CodePush.getUpdateMetadata(CodePush.UpdateState.RUNNING)
+        //     .then((metadata) => {
+        //         this.setState({ syncMessage: metadata ? JSON.stringify(metadata) : "Running binary version", progress: false });
+        //     }, (error) => {
+        //         this.setState({ syncMessage: "Error: " + error, progress: false });
+        //     });
     }
 
     /** Update is downloaded silently, and applied on restart (recommended) */
@@ -124,7 +128,6 @@ class CodePushPa extends Component {
                 </TouchableOpacity>
                 <Text style={styles.messages}>{this.state.syncMessage || ""}</Text>
 
-                <Text style={styles.messages}></Text>
 
             </View>
         );
