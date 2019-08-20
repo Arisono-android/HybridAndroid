@@ -5,6 +5,10 @@ import {Platform,StatusBar} from "react-native";
 import YRActivityIndicator from "../components/common/YRActivityIndicator";
 import YRModel from "../components/common/YRModel";
 import YRDatePicker from "../components/common/YRDatePicker";
+import CodePushPage from "../components/pages/CodePushPage";
+import EChartsPage from "../components/pages/EChartsPage";
+import AllScreenChart from "../components/pages/AllScreenChart";
+
 export const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
@@ -36,7 +40,28 @@ export const AppNavigator = createStackNavigator({
     },
     YRDatePicker:{
         screen:YRDatePicker
-    }
+    },
+    CodePushPage:{
+        screen:CodePushPage,//热更新测试页面
+        navigationOptions : {
+            title: '热更新',
+            headerBackTitle:'热更新',
+        }
+    },
+    EChartsPage:{
+        screen:EChartsPage,//热更新测试页面
+        navigationOptions : {
+            title: '图表',
+            headerBackTitle:'图表',
+        }
+    },
+    AllScreenChart:{
+        screen: AllScreenChart,//热更新测试页面
+        navigationOptions : {
+            gesturesEnabled: false,
+            header:null,
+        }
+}
 }, {
     initialRouteName: 'Home',
 });
