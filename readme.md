@@ -17,6 +17,9 @@
 
 - 下拉组件
 - npm i react-native-modal-dropdown -save
+
+
+-  npm install react-native-code-push --save
   
 ## UI组件封装
 

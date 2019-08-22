@@ -8,6 +8,7 @@ import YRDatePicker from "../components/common/YRDatePicker";
 import CodePushPage from "../components/pages/CodePushPage";
 import EChartsPage from "../components/pages/EChartsPage";
 import AllScreenChart from "../components/pages/AllScreenChart";
+import OrientationDemo from "../components/demo/OrientationDemo";
 
 export const AppNavigator = createStackNavigator({
     Home: {
@@ -61,7 +62,13 @@ export const AppNavigator = createStackNavigator({
             gesturesEnabled: false,
             header:null,
         }
-}
+},OrientationDemo:{
+        screen:OrientationDemo,
+        navigationOptions : {
+            gesturesEnabled: false,
+            header:null,
+        }
+    }
 }, {
     initialRouteName: 'Home',
 });

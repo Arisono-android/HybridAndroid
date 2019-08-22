@@ -206,9 +206,7 @@ export  default  class BIChartsItem extends Component {
                     >
 
                         <Image style={styles.topView_image}
-
-                            source={{uri: 'bi_allScreen'}}
-
+                            source={require('../../../assets/images/icon_screen.png')}
                         >
 
 
