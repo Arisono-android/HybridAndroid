@@ -32,7 +32,8 @@ export default class OrientationDemo extends Component<Props> {
         } else {
             // do something with portrait layout
         }
-    },
+    }
+
     componentWillUnmount() {
         Orientation.getOrientation((err, orientation) => {
             console.log(`Current Device Orientation: ${orientation}`);
